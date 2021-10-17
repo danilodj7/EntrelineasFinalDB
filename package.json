@@ -1,0 +1,11 @@
+{
+  "name": "backend-venta-productos-carro",
+  "version": "1.0.0",
+  "description": "Es el backend del proyecto Misiontic Ciclo3",
+  "main": "index.js",
+  "author": "Danilodj",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
