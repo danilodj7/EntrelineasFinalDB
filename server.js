@@ -7,6 +7,8 @@ import  Express  from "express";
 //importar mongodb
 import { MongoClient } from "mongodb";
 
+
+
 const stringConexion=
 'mongodb+srv://danilodj:500pesos2019.@proyectoproductoscar.sjr7k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
