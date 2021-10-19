@@ -125,7 +125,7 @@ app.delete('/usuarios/eliminar',(req,res)=>{
                 res.sendStatus(500);
             }else{
                 res.sendStatus(200);
-            }
+             } 
     })
 })
 
