@@ -1,12 +1,10 @@
 //hacer el import de express
 //const express = require('express');
-
 //hacer el import de express de una nueva forma
 import  Express  from "express";
-
 //importar mongodb
-import { MongoClient } from "mongodb";
-
+import { MongoClient,ObjectId } from "mongodb";
+import Cors from 'cors';
 
 
 const stringConexion=
@@ -24,6 +22,8 @@ let conexion;
 // app se agrega todo eje rutas 
 const app = Express();
 app.use(Express.json());
+app.use(Cors());
+  
 
 //el mensaje lo mustra el servidor en la terminal de visual studio code USAR GET
 app.get('/usuarios',(req,res)=>{
@@ -89,7 +89,46 @@ app.post('/usuarios/nuevo',(req,res)=>{
 })
 
 
-//escucha solicitudes con .list, se pone el puerto 5000 porque react tiene el puerto 3000
+app.patch('/usuarios/editar',(req,res)=>{
+
+   const edicion = req.body;
+    const filtroUsuarios = {_id: new ObjectId(edicion.id)};
+    delete edicion.id
+    const operacion ={
+        $set:edicion,
+    }
+    conexion
+    .collection('usuarios')
+    .findOneAndUpdate(
+        filtroUsuarios,
+        operacion,
+        {upsert:true,returnOriginal:true},
+        (err,result)=>{
+        if (err) {
+            console.error('Eror editar usuarios',err)
+            res.sendStatus(500)
+        }else{
+            console.log("Actualizado con exito")
+            res.sendStatus(200)
+        }
+    })
+
+})
+
+app.delete('/usuarios/eliminar',(req,res)=>{
+
+    const filtroUsuarios = {_id: new ObjectId(edicion.id)};
+    conexion.collection('usuarios').deleteOne(filtroUsuarios,(err,resul)=>{
+
+            if (err) {
+                console.error(err)
+                res.sendStatus(500);
+            }else{
+                res.sendStatus(200);
+            }
+    })
+})
+
 
 
 const main = ()=>{
@@ -101,6 +140,7 @@ const main = ()=>{
         }
          conexion = db.db('administradores');
          console.log('Conexion exitosa')
+         //escucha solicitudes con .list, se pone el puerto 5000 porque react tiene el puerto 3000
         return app.listen(5000,() => {
             console.log('Escuchando el pueto 5000')
         });
