@@ -91,7 +91,7 @@ app.post('/usuarios/nuevo',(req,res)=>{
 
 app.patch('/usuarios/editar',(req,res)=>{
 
-   const edicion = req.body;
+    const edicion = req.body;
     const filtroUsuarios = {_id: new ObjectId(edicion.id)};
     delete edicion.id
     const operacion ={
@@ -105,7 +105,7 @@ app.patch('/usuarios/editar',(req,res)=>{
         {upsert:true,returnOriginal:true},
         (err,result)=>{
         if (err) {
-            console.error('Eror editar usuarios',err)
+            console.error('Error editar usuarios',err)
             res.sendStatus(500)
         }else{
             console.log("Actualizado con exito")
@@ -116,7 +116,7 @@ app.patch('/usuarios/editar',(req,res)=>{
 })
 
 app.delete('/usuarios/eliminar',(req,res)=>{
-
+    const edicion =req.body
     const filtroUsuarios = {_id: new ObjectId(edicion.id)};
     conexion.collection('usuarios').deleteOne(filtroUsuarios,(err,resul)=>{
 
