@@ -1,7 +1,7 @@
 
 import { getDB } from "../../db/db.js";
 import { ObjectId } from "mongodb";
-import { ObjectID } from "bson";
+
 
 // se usa async await cuando haya una conexion a una base de datos
 // awat, uno espera una respuesta a de esa base de datos await funciona para esperar y despues ejecutar mas lineas de codigo
@@ -23,7 +23,7 @@ const consultarUsuarios= async (id ,callback) =>{
     const conexion = getDB()
     await conexion.collection('usuarios')
       // para hacer consulta con find ejemplo .find({'name':'pepe'})
-      .findOne({_id: new ObjectID(id)},callback)
+      .findOne({_id: new ObjectId(id)},callback)
       //se puede quitar el limit
       
       

@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 import { conectarBd,getDB } from "./db/db.js";
 //importar mongodb
 import rutasUsuarios from "./views/usuarios/rutas.js";
+import rutasVentas from "./views/productos/rutas.js";
 
 
 
@@ -17,6 +18,7 @@ const app = Express();
 app.use(Express.json());
 app.use(Cors());
 app.use(rutasUsuarios)
+app.use(rutasVentas)
   
 
 
