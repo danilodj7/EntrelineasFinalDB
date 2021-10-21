@@ -1,46 +1,46 @@
 import Express from "express"
-import { queryAllSells, crearVentas, editarVentas, eliminarVentas,consultarVentas } from "../../controller/Ventas/controller.js";
+import { queryAllProducts, crearProductos, editarProductos, eliminarProductos,consultarProductos } from "../../controller/productos/controller.js";
 
 
-const rutasVentas = Express.Router();
+const rutasProductos = Express.Router();
 
 const genericCallback =(res)=> (err,result)=>{
         if (err) {
-            res.status(500).send('Error consultando ventas')
+            res.status(500).send('Error consultando productos')
         }else{
             res.json(result)
         }
     }
 
 //el mensaje lo mustra el servidor en la terminal de visual studio code USAR GET
-rutasVentas.route('/ventas').get((req,res)=>{
-    console.log('alguien hizo get en la ruta /ventas')
-    queryAllSells(genericCallback(res)); // ponerle responseVentas() por si falla
+rutasProductos.route('/productos').get((req,res)=>{
+    console.log('alguien hizo get en la ruta /productos')
+    queryAllProducts(genericCallback(res)); // ponerle responseProductos() por si falla
 });
 
 // post create usuario del crud, req solicita de front al procesamiento del backend,  
 //res es el  backend devolviendo la respuesta
-rutasVentas.route('/ventas').post((req,res)=>{
+rutasProductos.route('/productos').post((req,res)=>{
     
-        crearVentas(req.body,genericCallback(res))
+        crearProductos(req.body,genericCallback(res))
 
 })
 
 // get consulta
-rutasVentas.route('/ventas/:id').get((req,res)=>{
+rutasProductos.route('/productos/:id').get((req,res)=>{
     console.log('alguien hizo un get a un solo usuario, hizo una consulta')
-    consultarVentas(req.params.id,genericCallback(res)); // ponerle responseVentas() por si falla
+    consultarProductos(req.params.id,genericCallback(res)); // ponerle responseProductos() por si falla
 });
 
-rutasVentas.route('/ventas/:id').patch((req,res)=>{
+rutasProductos.route('/productos/:id').patch((req,res)=>{
 
-  editarVentas(req.params.id,req.body, genericCallback(res))
+  editarProductos(req.params.id,req.body, genericCallback(res))
 
 })
 
-rutasVentas.route('/ventas/:id').delete((req,res)=>{
+rutasProductos.route('/productos/:id').delete((req,res)=>{
    
-    eliminarVentas(req.params.id,genericCallback(res))
+    eliminarProductos(req.params.id,genericCallback(res))
 })
 
-export default rutasVentas 
+export default rutasProductos 
