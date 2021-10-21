@@ -37,10 +37,10 @@ const crearUsuarios = async (datosUsuarios,callback)=>{
     
 }
 
-const editarUsuarios = async (edicion,callback)=>{
+const editarUsuarios = async (id, edicion,callback)=>{
 
-    const filtroUsuarios = {_id: new ObjectId(edicion.id)};
-    delete edicion.id
+    const filtroUsuarios = {_id: new ObjectId(id)};
+   
     const operacion ={
         $set:edicion,
     }

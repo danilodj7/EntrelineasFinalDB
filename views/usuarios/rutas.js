@@ -20,22 +20,22 @@ rutasUsuarios.route('/usuarios').get((req,res)=>{
 
 // post create usuario del crud, req solicita de front al procesamiento del backend,  
 //res es el  backend devolviendo la respuesta
-rutasUsuarios.route('/usuarios/nuevo').post((req,res)=>{
+rutasUsuarios.route('/usuarios').post((req,res)=>{
     
         crearUsuarios(req.body,genericCallback(res))
 
 })
 
 
-rutasUsuarios.route('/usuarios/editar').patch((req,res)=>{
+rutasUsuarios.route('/usuarios/:id').patch((req,res)=>{
 
-  editarUsuarios(req.body, genericCallback(res))
+  editarUsuarios(req.params.id,req.body, genericCallback(res))
 
 })
 
-rutasUsuarios.route('/usuarios/eliminar').delete((req,res)=>{
+rutasUsuarios.route('/usuarios/:id').delete((req,res)=>{
    
-    eliminarUsuarios(req.body.id,genericCallback(res))
+    eliminarUsuarios(req.params.id,genericCallback(res))
 })
 
 export default rutasUsuarios 
