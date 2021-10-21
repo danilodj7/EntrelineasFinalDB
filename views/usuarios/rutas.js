@@ -26,9 +26,9 @@ rutasUsuarios.route('/usuarios').post((req,res)=>{
 
 })
 
-
+// get consulta
 rutasUsuarios.route('/usuarios/:id').get((req,res)=>{
-    console.log('alguien hizo get en la ruta /usuarios')
+    console.log('alguien hizo un get a un solo usuario, hizo una consulta')
     consultarUsuarios(req.params.id,genericCallback(res)); // ponerle responseUsuarios() por si falla
 });
 
