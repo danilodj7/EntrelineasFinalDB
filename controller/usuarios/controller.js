@@ -2,6 +2,10 @@
 import { getDB } from "../../db/db.js";
 import { ObjectId } from "mongodb";
 
+// se usa async await cuando haya una conexion a una base de datos
+// awat, uno espera una respuesta a de esa base de datos await funciona para esperar y despues ejecutar mas lineas de codigo
+// osea que nosotros si hacemos desde el front  una solicitud al back ahi esparamos por ende tambien se usa en si cuando haya que esperar una respuesta
+// se envia la solicitud  se espera y despues se ejecuta el otro codigo
 const queryallUsers= async(callback)=>{
     const conexion = getDB()
    await conexion
@@ -49,4 +53,11 @@ const editarUsuarios = async (edicion,callback)=>{
         {upsert:true,returnOriginal:true},callback)
 
 }
-export {queryallUsers, crearUsuarios,editarUsuarios};
+
+const eliminarUsuarios = async (id,callback)=>{
+    const filtroUsuarios = {_id: new ObjectId(id)};
+    const conexion = getDB();
+    conexion.collection('usuarios').deleteOne(filtroUsuarios,callback)
+}
+
+export {queryallUsers, crearUsuarios,editarUsuarios, eliminarUsuarios};

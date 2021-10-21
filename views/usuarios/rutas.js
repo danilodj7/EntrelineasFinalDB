@@ -1,11 +1,8 @@
-
 import Express from "express"
-import { queryallUsers, crearUsuarios, editarUsuarios } from "../../controller/usuarios/controller.js";
-import { getDB } from "../../db/db.js";
-import { ObjectId } from "mongodb";
+import { queryallUsers, crearUsuarios, editarUsuarios, eliminarUsuarios } from "../../controller/usuarios/controller.js";
+
 
 const rutasUsuarios = Express.Router();
-
 
 const genericCallback =(res)=> (err,result)=>{
         if (err) {
@@ -38,17 +35,7 @@ rutasUsuarios.route('/usuarios/editar').patch((req,res)=>{
 
 rutasUsuarios.route('/usuarios/eliminar').delete((req,res)=>{
    
-    const filtroUsuarios = {_id: new ObjectId(req.body.id)};
-    const conexion = getDB();
-    conexion.collection('usuarios').deleteOne(filtroUsuarios,(err,resul)=>{
-
-            if (err) {
-                console.error(err)
-                res.sendStatus(500);
-            }else{
-                res.sendStatus(200);
-             } 
-    })
+    eliminarUsuarios(req.body.id,genericCallback(res))
 })
 
 export default rutasUsuarios 
