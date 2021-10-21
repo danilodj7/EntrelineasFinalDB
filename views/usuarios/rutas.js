@@ -1,70 +1,32 @@
 
 import Express from "express"
+import { queryallUsers, crearUsuarios } from "../../controller/usuarios/controller.js";
 import { getDB } from "../../db/db.js";
 
 const rutasUsuarios = Express.Router();
+
+
+const genericCallback =(res)=> (err,result)=>{
+        if (err) {
+            res.status(500).send('Error consultando Vehiculos')
+        }else{
+            res.json(result)
+        }
+    }
+    
+
+
 //el mensaje lo mustra el servidor en la terminal de visual studio code USAR GET
 rutasUsuarios.route('/usuarios').get((req,res)=>{
     console.log('alguien hizo get en la ruta /usuarios')
-       const conexion = getDB()
-       conexion
-        .collection('usuarios')
-        // para hacer consulta con find ejemplo .find({'name':'pepe'})
-        .find({})
-        //se puede quitar el limit
-        .limit(50)
-        .toArray((err,resul)=>{
-                if (err) {
-                    res.status(500).send('Error consultando Vehiculos')
-                }else{
-                    res.json(resul)
-                }
-        })
-    
-   
+    queryallUsers(genericCallback(res)); // ponerle responseUsuarios() por si falla
 });
 
 // post create usuario del crud, req solicita de front al procesamiento del backend,  
 //res es el  backend devolviendo la respuesta
 rutasUsuarios.route('/usuarios/nuevo').post((req,res)=>{
-   const datosUsuarios=req.body;
-    console.log("llaves",Object.keys(datosUsuarios));
-    try {
-        if (
-            Object.keys(datosUsuarios).includes('code') &&
-            Object.keys(datosUsuarios).includes('name') &&
-            Object.keys(datosUsuarios).includes('lastName') &&
-            Object.keys(datosUsuarios).includes('email') &&
-            Object.keys(datosUsuarios).includes('idCard') &&
-            Object.keys(datosUsuarios).includes('phone') 
-
-
-    ) {
-        
-        const conexion = getDB();
-        conexion.collection('usuarios').insertOne(datosUsuarios,(err,result)=>{
-            if (err) {
-                // error 500 no encontro la ruta 
-                console.error(err)
-        res.sendStatus(500)
-            }else{
-                 //implementeatr codigo para devolver respuesta ok usuario en el procesamiento del backend al front
-                 console.log(result)
-            res.sendStatus(200)
-            }
-        })
-    }else{
-        res.sendStatus(500)
-    }
-    } catch {
-        // error 500 no encontro la ruta 
-        res.sendStatus(500)
-    }
     
-  
-   //traer de imnsonia los datos en el console.log
-    console.log("usuario a crear",req.body);
-    
+        crearUsuarios(req.body,genericCallback(res))
 
 })
 
