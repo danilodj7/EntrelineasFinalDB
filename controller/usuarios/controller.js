@@ -1,5 +1,6 @@
 
 import { getDB } from "../../db/db.js";
+import { ObjectId } from "mongodb";
 
 const queryallUsers= async(callback)=>{
     const conexion = getDB()
@@ -24,7 +25,7 @@ const crearUsuarios = async (datosUsuarios,callback)=>{
             Object.keys(datosUsuarios).includes('phone') 
     ) {
         const conexion = getDB();
-        conexion.collection('usuarios').insertOne(datosUsuarios,callback)
+       await conexion.collection('usuarios').insertOne(datosUsuarios,callback)
     }else{
         return 'error'
     }
@@ -32,4 +33,20 @@ const crearUsuarios = async (datosUsuarios,callback)=>{
     
 }
 
-export {queryallUsers, crearUsuarios};
+const editarUsuarios = async (edicion,callback)=>{
+
+    const filtroUsuarios = {_id: new ObjectId(edicion.id)};
+    delete edicion.id
+    const operacion ={
+        $set:edicion,
+    }
+    const conexion = getDB();
+    await conexion
+    .collection('usuarios')
+    .findOneAndUpdate(
+        filtroUsuarios,
+        operacion,
+        {upsert:true,returnOriginal:true},callback)
+
+}
+export {queryallUsers, crearUsuarios,editarUsuarios};

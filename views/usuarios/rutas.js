@@ -1,20 +1,19 @@
 
 import Express from "express"
-import { queryallUsers, crearUsuarios } from "../../controller/usuarios/controller.js";
+import { queryallUsers, crearUsuarios, editarUsuarios } from "../../controller/usuarios/controller.js";
 import { getDB } from "../../db/db.js";
+import { ObjectId } from "mongodb";
 
 const rutasUsuarios = Express.Router();
 
 
 const genericCallback =(res)=> (err,result)=>{
         if (err) {
-            res.status(500).send('Error consultando Vehiculos')
+            res.status(500).send('Error consultando Usuarios')
         }else{
             res.json(result)
         }
     }
-    
-
 
 //el mensaje lo mustra el servidor en la terminal de visual studio code USAR GET
 rutasUsuarios.route('/usuarios').get((req,res)=>{
@@ -33,28 +32,7 @@ rutasUsuarios.route('/usuarios/nuevo').post((req,res)=>{
 
 rutasUsuarios.route('/usuarios/editar').patch((req,res)=>{
 
-    const edicion = req.body;
-    const filtroUsuarios = {_id: new ObjectId(edicion.id)};
-    delete edicion.id
-    const operacion ={
-        $set:edicion,
-    }
-    const conexion = getDB();
-    conexion
-    .collection('usuarios')
-    .findOneAndUpdate(
-        filtroUsuarios,
-        operacion,
-        {upsert:true,returnOriginal:true},
-        (err,result)=>{
-        if (err) {
-            console.error('Error editar usuarios',err)
-            res.sendStatus(500)
-        }else{
-            console.log("Actualizado con exito")
-            res.sendStatus(200)
-        }
-    })
+  editarUsuarios(req.body, genericCallback(res))
 
 })
 
