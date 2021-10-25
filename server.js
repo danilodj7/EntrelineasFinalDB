@@ -34,6 +34,7 @@ issuer: 'https://ventas-productoscar.us.auth0.com/',
 algorithms: ['RS256']
 });
 
+// paso 4 y 5  enviarle el token a auth0 para que devuelva si es valido o no 
 app.use(jwtCheck )
 
 app.use(rutasUsuarios)

@@ -18,23 +18,31 @@ const queryAllProducts= async(callback)=>{
    
 }
 
+
+
+const crearProductos = async (datosProductos,callback)=>{
+    if (
+        Object.keys(datosProductos).includes('comapny') &&
+        Object.keys(datosProductos).includes('nameProduct') &&
+        Object.keys(datosProductos).includes('warranty')
+      ) {
+        const conexion = getDB();
+        // implementar código para crear vehículo en la BD
+    
+        await conexion.collection('productos').insertOne(datosProductos, callback);
+      } else {
+        return 'error';
+      }
+
+}
+
 const consultarProductos= async (id ,callback) =>{
     const conexion = getDB()
     await conexion.collection('productos')
       // para hacer consulta con find ejemplo .find({'name':'pepe'})
       .findOne({_id: new ObjectId(id)},callback)
       //se puede quitar el limit
-      
-      
-}
 
-const crearProductos = async (datosProductos,callback)=>{
-    
-       const conexion = getDB();
-       await conexion.collection('productos').insertOne(datosProductos,callback)
-    
-   
-    
 }
 
 const editarProductos = async (id, edicion,callback)=>{
