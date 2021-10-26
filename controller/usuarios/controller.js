@@ -58,7 +58,6 @@ const consultarOCrearUsuario =async (req, callback) =>{
 
                 user.auth0ID = user._id;
                  delete user._id;
-
                  user.rol = 'Sin rol';
                  user.estado = 'pendiente';
                 await crearUsuarios(user,(err, respuesta)=>callback(err,user))

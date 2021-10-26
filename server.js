@@ -13,6 +13,7 @@ import rutasProductos from "./views/productos/rutas.js";
 
 import jwt from 'express-jwt'
 import jwks from 'jwks-rsa'
+import autorizacionEstadoUsuario from "./middleware/autorizacionEstadoUsuario.js";
 
 
 dotenv.config({path:'./.env'})
@@ -36,7 +37,7 @@ algorithms: ['RS256']
 
 // paso 4 y 5  enviarle el token a auth0 para que devuelva si es valido o no 
 app.use(jwtCheck )
-
+app.use(autorizacionEstadoUsuario)
 app.use(rutasUsuarios)
 app.use(rutasVentas)
 app.use(rutasProductos)
