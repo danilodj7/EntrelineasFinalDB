@@ -18,6 +18,7 @@ import autorizacionEstadoUsuario from "./middleware/autorizacionEstadoUsuario.js
 
 dotenv.config({path:'./.env'})
 
+const port = process.env.PORT || 5000;
 // app se agrega todo eje rutas 
 const app = Express();
 app.use(Express.json());
@@ -46,8 +47,8 @@ app.use(rutasProductos)
 
 const main = ()=>{
      //escucha solicitudes con .list, se pone el puerto 5000 porque react tiene el puerto 3000
-    return app.listen(process.env.PORT, () => { 
-        console.log(`Escuchando el pueto ${process.env.PORT}`);
+    return app.listen(port, () => { 
+        console.log(`Escuchando el pueto ${port}`);
       });
     
 }
