@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Es el backend del proyecto Misiontic Ciclo3",
   "main": "index.js",
+  "repository": "https://github.com/danilodj7/EntrelineasFinalDB.git",
   "author": "Danilodj",
   "license": "MIT",
   "type": "module",
