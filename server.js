@@ -53,4 +53,4 @@ const main = ()=>{
     
 }
 
-conectarBd(main)
+conectarBd(main())
